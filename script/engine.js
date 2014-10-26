@@ -23,7 +23,7 @@ window.onload = function(){
 
     var frameCountTimer = 0, fps = 0, sector = 0;
 	var stars;
-    var Area = {x: mapSize, y: mapSize}, numberOfAsteroids, numberOfBuildings, areBuildingsClose = false, isAsteroidClose, i, j;
+    var Area = {x: mapSize, y: mapSize}, numberOfAsteroids, areBuildingsClose = false, isAsteroidClose, i, j;
     var TextObj = {};
     var S = {};
     var ship = new Ship(7500, 7500);
