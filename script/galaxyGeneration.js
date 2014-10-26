@@ -153,7 +153,7 @@ function galaxy(){
 //		pointTo = grn(1, 4);
 //		this.setSectorLink(root1, root2, pointTo);
 
-		for (i = 1; i <= galaxySize; i++)
+		for (i = 0; i < galaxySize; i++)
 		{
 			maxNeighbours = grn(1, 4);
 
@@ -213,9 +213,9 @@ function galaxy(){
 
 	this.generateMap = function()
 	{
-		var i, numberOfAsteroids, numberOfBuildings, S, Asteroids = [], BuildingsArr = [];
+		var i, j, numberOfAsteroids, numberOfBuildings, S, Asteroids = [], BuildingsArr = [];
 
-		for (var sector = 1; sector < this.galaxySize; sector++)
+		for (var sector = 0; sector < this.galaxySize; sector++)
 		{
 			var BuildingTypesCounter = {};
 			for(i in Buildings)

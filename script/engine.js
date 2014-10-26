@@ -14,12 +14,14 @@ window.onload = function(){
           e.preventDefault();
            return false;
          }
+
+		return true;
      }, false);
 
 	var map = new galaxy();
 	map.generateGalaxy();
 
-    var frameCountTimer = 0, fps = 0, sector = 1;
+    var frameCountTimer = 0, fps = 0, sector = 0;
 	var stars;
     var Area = {x: mapSize, y: mapSize}, numberOfAsteroids, numberOfBuildings, areBuildingsClose = false, isAsteroidClose, i, j;
     var TextObj = {};
@@ -33,6 +35,9 @@ window.onload = function(){
 	function loadData(sector)
 	{
 		var response, tmp;
+		S = [];
+		Asteroids = [];
+		BuildingsArr = [];
 
 		response = getData(sector, 1);
 		if (response && response != '-1')
@@ -152,7 +157,7 @@ window.onload = function(){
 				stars.loadMap();
 				starMapAnimate(0);
 
-				askAnimFrame = false
+				askAnimFrame = false;
 			}
 
             if (keyPressed[84])
@@ -233,7 +238,7 @@ window.onload = function(){
                 {
 					mouseClick = false;
 
-					var objClicked = PanelObj.getClickedItem();
+					objClicked = PanelObj.getClickedItem();
 
 					if (objClicked != false)
 					{
@@ -282,7 +287,7 @@ window.onload = function(){
 				else if (ship.getInventory().getViewStatus() && !conObj.getViewStatus())
 				{
 					mouseClick = false;
-					var objClicked = ship.getInventory().getList().getSelected();
+					objClicked = ship.getInventory().getList().getSelected();
 
 					if (objClicked != false)
 					{
@@ -480,9 +485,9 @@ window.onload = function(){
 
 			if (newSector !== false)
 			{
-				saveData(sector, 1);
-				saveData(sector, 2);
-				saveData(sector, 3);
+				saveData(sector, 1, S);
+				saveData(sector, 2, Asteroids);
+				saveData(sector, 3, BuildingsArr);
 				sector = newSector;
 				requestAnimation = false;
 				travelAnimation(0);
@@ -505,7 +510,7 @@ window.onload = function(){
 		else
 		{
 			stars = {};
-			if (newSector != false)
+			if (newSector !== false)
 			{
 				loadData(newSector);
 			}

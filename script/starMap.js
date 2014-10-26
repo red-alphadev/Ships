@@ -21,11 +21,27 @@ function starMap()
 
 	this.getSelectedSector = function()
 	{
+		var cStar, cStarTextLength, cStarNameSizeX;
+
 		for(var i = 0; i < this.stars.length; i++)
 		{
-			if (Math.abs(mouseX - this.stars[i].sectorX) < 30 && Math.abs(mouseY - this.stars[i].sectorY) < 10)
+			cStar = this.stars[i];
+			cStarTextLength = cStar.sectorName.length * 9;
+			cStarNameSizeX = cStar.sectorX + cStarTextLength;
+
+			if (cStarNameSizeX < canvasWidth)
 			{
-				return i;
+				if (mouseX > cStar.sectorX && mouseX - cStar.sectorX < cStarTextLength && Math.abs(mouseY - cStar.sectorY) < 12)
+				{
+					return i;
+				}
+			}
+			else
+			{
+				if (mouseX < cStar.sectorX && cStar.sectorX - mouseX < cStarTextLength && Math.abs(mouseY - cStar.sectorY) < 12)
+				{
+					return i;
+				}
 			}
 		}
 
@@ -34,23 +50,19 @@ function starMap()
 
 	this.draw = function(c)
 	{
-		var selected = -1;
+		var selected = this.getSelectedSector();
 
 		for(var i = 0; i < this.stars.length; i++)
 		{
-			if (Math.abs(mouseX - this.stars[i].sectorX) < 30 && Math.abs(mouseY - this.stars[i].sectorY) < 10)
+			c.fillStyle = 'white';
+			if (selected === i)
 			{
 				c.fillStyle = 'red';
-				selected = i;
-			}
-			else
-			{
-				c.fillStyle = 'white';
 			}
 
-			if (this.stars[i].sectorX + this.stars[i].sectorName.length * 5 > canvasWidth)
+			if (this.stars[i].sectorX + this.stars[i].sectorName.length * 8 > canvasWidth)
 			{
-				c.fillText(this.stars[i].sectorName + "(" + i + ")", this.stars[i].sectorX - this.stars[i].sectorName.length * 5, this.stars[i].sectorY + 3);
+				c.fillText(this.stars[i].sectorName + "(" + i + ")", this.stars[i].sectorX - this.stars[i].sectorName.length * 8 - 15, this.stars[i].sectorY + 3);
 			}
 			else
 			{
@@ -66,14 +78,14 @@ function starMap()
 		}
 
 		c.lineWidth = 2;
-		if (selected != -1 && this.circleSize < 20)
+		if (selected !== false && this.circleSize < 20)
 		{
 			c.beginPath();
 			c.arc(this.stars[selected].sectorX, this.stars[selected].sectorY, this.circleSize, this.currentAngle, this.currentAngle + 1.75 * Math.PI, false);
 			c.stroke();
 			this.circleSize++;
 		}
-		else if (selected != -1 && this.circleSize >= 20)
+		else if (selected !== false && this.circleSize >= 20)
 		{
 			c.beginPath();
 			c.arc(this.stars[selected].sectorX, this.stars[selected].sectorY, this.circleSize, this.currentAngle, this.currentAngle + 1.75 * Math.PI, false);
@@ -82,7 +94,7 @@ function starMap()
 
 			c.stroke();
 		}
-		else if (selected == -1)
+		else if (selected === false)
 		{
 			this.circleSize = 0;
 			this.currentAngle = 0;

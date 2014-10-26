@@ -12,7 +12,7 @@ function Travel()
 
 	this.draw = function(c)
 	{
-		if (this.life > 250) return false;
+		if (this.life > 72) return false;
 
 		c.fillStyle = 'black';
 		c.strokeStyle = 'white';
@@ -34,7 +34,7 @@ function Travel()
 			}
 		}
 
-		if (this.life < 125 && this.direction == 0)
+		if (this.life < 34 && this.direction == 0)
 		{
 			this.life++;
 		}
@@ -46,6 +46,8 @@ function Travel()
 		{
 			this.life--;
 		}
+
+		return true;
 	};
 
 	this.isDone = function()
