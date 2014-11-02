@@ -153,7 +153,7 @@ window.onload = function(){
 			if (keyPressed[77])
 			{
 				keyPressed[77] = false;
-				starMapObj = new starMap();
+				starMapObj = new starMap(sector);
 				starMapObj.loadMap();
 				starMapAnimate(0);
 
@@ -489,7 +489,6 @@ window.onload = function(){
 				saveData(sector, 2, Asteroids);
 				saveData(sector, 3, BuildingsArr);
 				sector = newSector;
-				starMapObj.setCurrentSector(sector);
 				requestAnimation = false;
 				travelAnimation(0);
 			}

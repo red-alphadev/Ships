@@ -1,17 +1,9 @@
-function starMap()
+function starMap(sector)
 {
 	this.stars = {};
 	this.circleSize = 0;
 	this.currentAngle = 0;
-	this.currentSector = 0;
-
-	this.setCurrentSector = function(sector)
-	{
-		if (sector >= 0 && sector < GALAXYSIZE)
-		{
-			this.currentSector = sector;
-		}
-	};
+	this.currentSector = sector;
 
 	this.loadMap = function()
 	{
@@ -86,7 +78,7 @@ function starMap()
 			c.stroke();
 		}
 
-		if (selected != this.currentSector)
+		if ((selected !== false) && (selected != this.currentSector))
 		{
 			c.lineWidth = 1;
 			var dX = Math.abs(this.stars[this.currentSector].sectorX - this.stars[selected].sectorX),
