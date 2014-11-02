@@ -18,11 +18,11 @@ window.onload = function(){
 		return true;
      }, false);
 
-	var map = new galaxy();
-	map.generateGalaxy();
+//	var map = new galaxy();
+//	map.generateGalaxy();
 
     var frameCountTimer = 0, fps = 0, sector = 0;
-	var stars;
+	var starMapObj;
     var Area = {x: mapSize, y: mapSize}, numberOfAsteroids, areBuildingsClose = false, isAsteroidClose, i, j;
     var TextObj = {};
     var S = {};
@@ -153,8 +153,8 @@ window.onload = function(){
 			if (keyPressed[77])
 			{
 				keyPressed[77] = false;
-				stars = new starMap();
-				stars.loadMap();
+				starMapObj = new starMap();
+				starMapObj.loadMap();
 				starMapAnimate(0);
 
 				askAnimFrame = false;
@@ -477,11 +477,11 @@ window.onload = function(){
 		c.fillStyle = 'black';
 		c.fillRect(0, 0, canvasWidth, canvasHeight);
 
-		stars.draw(c);
+		starMapObj.draw(c);
 		if (mouseClick)
 		{
 			mouseClick = false;
-			newSector = stars.getSelectedSector();
+			newSector = starMapObj.getSelectedSector();
 
 			if (newSector !== false)
 			{
@@ -489,6 +489,7 @@ window.onload = function(){
 				saveData(sector, 2, Asteroids);
 				saveData(sector, 3, BuildingsArr);
 				sector = newSector;
+				starMapObj.setCurrentSector(sector);
 				requestAnimation = false;
 				travelAnimation(0);
 			}
@@ -509,7 +510,7 @@ window.onload = function(){
 		}
 		else
 		{
-			stars = {};
+			starMapObj = {};
 			if (newSector !== false)
 			{
 				loadData(newSector);

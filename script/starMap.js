@@ -3,6 +3,15 @@ function starMap()
 	this.stars = {};
 	this.circleSize = 0;
 	this.currentAngle = 0;
+	this.currentSector = 0;
+
+	this.setCurrentSector = function(sector)
+	{
+		if (sector >= 0 && sector < GALAXYSIZE)
+		{
+			this.currentSector = sector;
+		}
+	};
 
 	this.loadMap = function()
 	{
@@ -77,7 +86,24 @@ function starMap()
 			c.stroke();
 		}
 
-		c.lineWidth = 2;
+		if (selected != this.currentSector)
+		{
+			c.lineWidth = 1;
+			var dX = Math.abs(this.stars[this.currentSector].sectorX - this.stars[selected].sectorX),
+				dY = Math.abs(this.stars[this.currentSector].sectorY - this.stars[selected].sectorY);
+				dst = Math.round(Math.sqrt(dX * dX + dY * dY));
+
+			c.moveTo(this.stars[this.currentSector].sectorX, this.stars[this.currentSector].sectorY);
+			c.lineTo(this.stars[selected].sectorX, this.stars[selected].sectorY);
+			c.stroke();
+
+			c.font = '24px Verdana';
+			c.fillStyle = 'green';
+			c.fillText('Distance: ' + dst, 20, canvasHeight - 20);
+			c.font = '12px Verdana';
+		}
+
+		c.lineWidth = 1;
 		if (selected !== false && this.circleSize < 20)
 		{
 			c.beginPath();
